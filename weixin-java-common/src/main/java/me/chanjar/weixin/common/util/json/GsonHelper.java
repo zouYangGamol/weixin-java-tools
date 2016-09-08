@@ -32,7 +32,7 @@ public class GsonHelper {
   }
 
   public static Integer getInteger(JsonObject json, String property) {
-    return getAsInteger(json.get(property));
+    return json.get(property) == null ? 0 : getAsInteger(json.get(property));
   }
 
   public static int getPrimitiveInteger(JsonObject json, String property) {

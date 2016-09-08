@@ -1,6 +1,9 @@
 package me.chanjar.weixin.mp.api;
 
+import java.util.List;
+
 import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.mp.bean.result.WxMpUserList;
 import me.chanjar.weixin.mp.bean.tag.WxUserTag;
 
 /**
@@ -22,5 +25,28 @@ public interface WxMpUserTagService {
    * @param name 分组名字（30个字符以内）
    */
   WxUserTag tagCreate(String name) throws WxErrorException;
+
+  /**
+   * <pre>
+   *   获取公众号已创建的标签
+   * 
+   * 详情请见：<a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140837&token=&lang=zh_CN">用户标签管理</a>
+   * 接口url格式： https://api.weixin.qq.com/cgi-bin/tags/get?access_token=ACCESS_TOKEN
+   * </pre>
+   *
+   */
+  List<WxUserTag> tagList() throws WxErrorException;
+
+  /**
+   * <pre>
+   *   获取标签下粉丝列表
+   * 
+   * 详情请见：<a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140837&token=&lang=zh_CN">用户标签管理</a>
+   * 接口url格式： https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=ACCESS_TOKEN
+   * </pre>
+   *
+   *@param nextOpenid 可选，第一个拉取的OPENID，null为从头开始拉取
+   */
+  WxMpUserList tagUserList(Integer tagId, String next_openid) throws WxErrorException;
 
 }
