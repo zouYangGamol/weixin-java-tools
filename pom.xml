@@ -30,9 +30,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/binarywang/weixin-java-tools.git</connection>
-    <developerConnection>scm:git:git@github.com:binarywang/weixin-java-tools.git</developerConnection>
-    <url>https://github.com/binarywang/weixin-java-tools</url>
+    <connection>scm:git:https://github.com/zouYangGamol/weixin-java-tools.git</connection>
+    <developerConnection>scm:git:git@github.com/zouYangGamol/weixin-java-tools.git</developerConnection>
+    <url>https://github.com/zouYangGamol/weixin-java-tools</url>
   </scm>
 
   <modules>
