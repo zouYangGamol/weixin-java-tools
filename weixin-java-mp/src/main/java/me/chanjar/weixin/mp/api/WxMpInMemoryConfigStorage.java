@@ -70,6 +70,12 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
   }
 
   @Override
+  public synchronized void updateAccessTokenByThirdPart(String accessToken, long expiresTime) {
+    this.accessToken = accessToken;
+    this.expiresTime = expiresTime;
+  }
+
+  @Override
   public void expireAccessToken() {
     this.expiresTime = 0;
   }

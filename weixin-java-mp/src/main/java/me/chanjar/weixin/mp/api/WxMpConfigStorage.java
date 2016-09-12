@@ -98,4 +98,6 @@ public interface WxMpConfigStorage {
    * @return ApacheHttpClientBuilder
    */
   ApacheHttpClientBuilder getApacheHttpClientBuilder();
+
+void updateAccessTokenByThirdPart(String accessToken, long expiresTime);
 }
