@@ -25,6 +25,7 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
   protected volatile String accessToken;
   protected volatile String aesKey;
   protected volatile long expiresTime;
+  protected volatile int requestAccessTokenTime;
 
   protected volatile String oauth2redirectUri;
 
@@ -281,5 +282,17 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
 
   public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
     this.apacheHttpClientBuilder = apacheHttpClientBuilder;
+  }
+
+  public int getRequestAccessTokenTime() {
+      return requestAccessTokenTime;
+  }
+
+  public void setRequestAccessTokenTime(int requestAccessTokenTime) {
+      this.requestAccessTokenTime = requestAccessTokenTime;
+  }
+
+  public void addRequestAccessTokenTime() {
+      this.requestAccessTokenTime += 1;
   }
 }

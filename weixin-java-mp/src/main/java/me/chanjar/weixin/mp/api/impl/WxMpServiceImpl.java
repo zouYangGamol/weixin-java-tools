@@ -322,7 +322,7 @@ public class WxMpServiceImpl implements WxMpService {
     return url.toString();
   }
 
-  private WxMpOAuth2AccessToken getOAuth2AccessToken(StringBuilder url) throws WxErrorException {
+  protected WxMpOAuth2AccessToken getOAuth2AccessToken(StringBuilder url) throws WxErrorException {
     try {
       RequestExecutor<String, String> executor = new SimpleGetRequestExecutor();
       String responseText = executor.execute(this.getHttpclient(), this.httpProxy, url.toString(), null);
@@ -461,11 +461,21 @@ public class WxMpServiceImpl implements WxMpService {
       return executor.execute(getHttpclient(), this.httpProxy, uriWithAccessToken, data);
     } catch (WxErrorException e) {
       WxError error = e.getError();
+      if (wxMpConfigStorage.getRequestAccessTokenTime() > 10) {
+          /*
+           * 防止陷入死循环
+           */
+          this.wxMpConfigStorage.expireAccessToken();
+          wxMpConfigStorage.setRequestAccessTokenTime(0);
+          throw new WxErrorException(error);
+      }
+      wxMpConfigStorage.addRequestAccessTokenTime();
       /*
        * 发生以下情况时尝试刷新access_token
        * 40001 获取access_token时AppSecret错误，或者access_token无效
        * 42001 access_token超时
        */
+      
       if (error.getErrorCode() == 42001 || error.getErrorCode() == 40001) {
         // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
         this.wxMpConfigStorage.expireAccessToken();
