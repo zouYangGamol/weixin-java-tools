@@ -9,8 +9,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
@@ -80,7 +78,7 @@ public class WxMpKefuServiceImplTest {
           "testKfAccountAdd" }, dataProvider = "getKfAccount")
   public void testKfAccountInviteWorker(String kfAccount) throws WxErrorException {
     WxMpKfAccountRequest request = WxMpKfAccountRequest.builder()
-            .kfAccount(kfAccount).inviteWx("www_ucredit_com").build();
+        .kfAccount(kfAccount).inviteWx("    ").build();
     Assert.assertTrue(this.wxService.getKefuService().kfAccountInviteWorker(request));
   }
 
@@ -150,20 +148,20 @@ public class WxMpKefuServiceImplTest {
   }
 
   @Test
-  public void testKfMsgList() throws WxErrorException, JsonProcessingException {
+  public void testKfMsgList() throws WxErrorException {
     Date startTime = DateTime.now().minusDays(1).toDate();
     Date endTime = DateTime.now().minusDays(0).toDate();
     WxMpKfMsgList result = this.wxService.getKefuService().kfMsgList(startTime,endTime, 1L, 50);
     Assert.assertNotNull(result);
-    System.err.println(new ObjectMapper().writeValueAsString(result));
+    System.err.println(result);
   }
 
   @Test
-  public void testKfMsgListAll() throws WxErrorException, JsonProcessingException {
+  public void testKfMsgListAll() throws WxErrorException {
     Date startTime = DateTime.now().minusDays(1).toDate();
     Date endTime = DateTime.now().minusDays(0).toDate();
     WxMpKfMsgList result = this.wxService.getKefuService().kfMsgList(startTime,endTime);
     Assert.assertNotNull(result);
-    System.err.println(new ObjectMapper().writeValueAsString(result));
+    System.err.println(result);
   }
 }

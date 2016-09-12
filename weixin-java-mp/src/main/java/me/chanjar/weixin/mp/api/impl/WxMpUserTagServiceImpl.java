@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonObject;
 
+import me.chanjar.weixin.common.bean.result.WxError;
+//github.com/zouYangGamol/weixin-java-tools.git
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -20,7 +22,8 @@ import me.chanjar.weixin.mp.bean.tag.WxUserTag;
  *         Created by Binary Wang on 2016/9/2.
  */
 public class WxMpUserTagServiceImpl implements WxMpUserTagService {
-  protected final Logger log = LoggerFactory.getLogger(WxMpDataCubeServiceImpl.class);
+  protected final Logger log = LoggerFactory
+      .getLogger(WxMpDataCubeServiceImpl.class);
   private static final String API_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/tags";
   private static final String API_USER_TARG_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/user/tag";
 
@@ -34,15 +37,13 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
   public WxUserTag tagCreate(String name) throws WxErrorException {
     String url = API_URL_PREFIX + "/create";
     JsonObject json = new JsonObject();
-    JsonObject groupJson = new JsonObject();
-    groupJson.addProperty("name", name);
-    json.add("tag", groupJson);
+    JsonObject tagJson = new JsonObject();
+    tagJson.addProperty("name", name);
+    json.add("tag", tagJson);
 
-    String responseContent = this.wxMpService.execute(
-            new SimplePostRequestExecutor(),
-            url,
-            json.toString());
-    this.log.debug("\nurl:{}\nparams:{}\nresponse:{}",url, name, responseContent);
+    String responseContent = this.wxMpService.post(url, json.toString());
+    this.log.debug("\nurl:{}\nparams:{}\nresponse:{}", url, json.toString(),
+        responseContent);
     return WxUserTag.fromJson(responseContent);
   }
 
@@ -64,5 +65,33 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
     if (null != next_openid) json.addProperty("next_openid", next_openid);
     String responseContent = this.wxMpService.execute(new SimplePostRequestExecutor(), url, json.toString());
     return WxMpUserList.fromJson(responseContent);
+  }
+  public List<WxUserTag> tagGet() throws WxErrorException {
+    String url = API_URL_PREFIX + "/get";
+
+    String responseContent = this.wxMpService.get(url, null);
+    this.log.debug("\nurl:{}\nparams:{}\nresponse:{}", url, "[empty]",
+        responseContent);
+    return WxUserTag.listFromJson(responseContent);
+  }
+
+  @Override
+  public Boolean tagUpdate(Integer id, String name) throws WxErrorException {
+    String url = API_URL_PREFIX + "/update";
+
+    JsonObject json = new JsonObject();
+    JsonObject tagJson = new JsonObject();
+    tagJson.addProperty("id", id);
+    tagJson.addProperty("name", name);
+    json.add("tag", tagJson);
+
+    String responseContent = this.wxMpService.post(url, json.toString());
+    this.log.debug("\nurl:{}\nparams:{}\nresponse:{}", url, json.toString(), responseContent);
+    WxError wxError = WxError.fromJson(responseContent);
+    if (wxError.getErrorCode() == 0) {
+      return true;
+    }
+
+    throw new WxErrorException(wxError);
   }
 }

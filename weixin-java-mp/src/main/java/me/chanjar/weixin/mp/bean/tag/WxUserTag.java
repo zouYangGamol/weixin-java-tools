@@ -1,18 +1,17 @@
 package me.chanjar.weixin.mp.bean.tag;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-
-import me.chanjar.weixin.mp.bean.result.WxMpUser;
-import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
 
 /**
  * 用户标签对象
@@ -36,7 +35,7 @@ public class WxUserTag {
   private Integer count;
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public void setName(String name) {
@@ -44,7 +43,7 @@ public class WxUserTag {
   }
 
   public Integer getCount() {
-    return count;
+    return this.count;
   }
 
   public void setCount(Integer count) {
@@ -52,7 +51,7 @@ public class WxUserTag {
   }
 
   public Integer getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(Integer id) {
@@ -60,7 +59,15 @@ public class WxUserTag {
   }
 
   public static WxUserTag fromJson(String json) {
-    return WxMpGsonBuilder.create().fromJson(new JsonParser().parse(json).getAsJsonObject().get("tag"), WxUserTag.class);
+    return WxMpGsonBuilder.create().fromJson(
+        new JsonParser().parse(json).getAsJsonObject().get("tag"),
+        WxUserTag.class);
+  }
+
+  public static List<WxUserTag> listFromJson(String json) {
+    return WxMpGsonBuilder.create().fromJson(
+        new JsonParser().parse(json).getAsJsonObject().get("tags"),
+        new TypeToken<List<WxUserTag>>(){}.getType());
   }
 
   public String toJson() {
