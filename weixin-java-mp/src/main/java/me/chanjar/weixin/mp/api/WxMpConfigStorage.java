@@ -107,4 +107,17 @@ int getRequestAccessTokenTime();
 void setRequestAccessTokenTime(int requestAccessTokenTime);
 
 void addRequestAccessTokenTime();
+
+int getRequestAccessTokenFlushTime();
+
+void setRequestAccessTokenFlushTime(int requestAccessTokenFlushTime);
+
+void addRequestAccessTokenFlushTime() ;
+
+int getRequestAccessTokenMaxTime();
+
+void setRequestAccessTokenMaxTime(int requestAccessTokenMaxTime);
+
+void addRequestAccessTokenMaxTime();
+
 }

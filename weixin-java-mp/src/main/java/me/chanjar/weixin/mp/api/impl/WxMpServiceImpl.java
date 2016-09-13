@@ -470,6 +470,8 @@ public class WxMpServiceImpl implements WxMpService {
           throw new WxErrorException(error);
       }
       wxMpConfigStorage.addRequestAccessTokenTime();
+      wxMpConfigStorage.addRequestAccessTokenMaxTime();
+      wxMpConfigStorage.addRequestAccessTokenFlushTime();
       /*
        * 发生以下情况时尝试刷新access_token
        * 40001 获取access_token时AppSecret错误，或者access_token无效

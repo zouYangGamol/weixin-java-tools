@@ -26,6 +26,8 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
   protected volatile String aesKey;
   protected volatile long expiresTime;
   protected volatile int requestAccessTokenTime;
+  protected volatile int requestAccessTokenFlushTime;
+  protected volatile int requestAccessTokenMaxTime;
 
   protected volatile String oauth2redirectUri;
 
@@ -295,4 +297,27 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
   public void addRequestAccessTokenTime() {
       this.requestAccessTokenTime += 1;
   }
+
+public int getRequestAccessTokenFlushTime() {
+    return requestAccessTokenFlushTime;
+}
+
+public void setRequestAccessTokenFlushTime(int requestAccessTokenFlushTime) {
+    this.requestAccessTokenFlushTime = requestAccessTokenFlushTime;
+}
+public void addRequestAccessTokenFlushTime() {
+    this.requestAccessTokenFlushTime += 1;
+}
+
+public int getRequestAccessTokenMaxTime() {
+    return requestAccessTokenMaxTime;
+}
+public void setRequestAccessTokenMaxTime(int requestAccessTokenMaxTime) {
+    this.requestAccessTokenMaxTime = requestAccessTokenMaxTime;
+}
+public void addRequestAccessTokenMaxTime() {
+    this.requestAccessTokenMaxTime += 1;
+}
+
+  
 }

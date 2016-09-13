@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
   <name>WeiXin Java Tools - Parent</name>
   <description>微信公众号、企业号上级POM</description>
-  <url>https://github.com/binarywang/weixin-java-tools</url>
+  <url>https://github.com/zouYangGamol/weixin-java-tools</url>
 
   <licenses>
     <license>
@@ -29,11 +29,11 @@
     </developer>
   </developers>
 
-  <scm>
+<!--   <scm>
     <connection>scm:git:https://github.com/zouYangGamol/weixin-java-tools.git</connection>
     <developerConnection>scm:git:git@github.com/zouYangGamol/weixin-java-tools.git</developerConnection>
     <url>https://github.com/zouYangGamol/weixin-java-tools</url>
-  </scm>
+  </scm> -->
 
   <modules>
     <module>weixin-java-common</module>
